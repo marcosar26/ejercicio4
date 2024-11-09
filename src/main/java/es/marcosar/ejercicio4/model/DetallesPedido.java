@@ -23,4 +23,10 @@ public class DetallesPedido {
     private Producto producto;
 
     private Integer cantidad;
+
+    public DetallesPedido(Pedido pedido, Producto producto, Integer cantidad) {
+        this.pedido = pedido;
+        this.producto = producto;
+        this.cantidad = cantidad;
+    }
 }

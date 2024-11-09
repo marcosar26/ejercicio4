@@ -22,4 +22,9 @@ public class Pedido {
     private Usuario usuario;
 
     private LocalDateTime fecha_pedido;
+
+    public Pedido(Usuario usuario, LocalDateTime fecha_pedido) {
+        this.usuario = usuario;
+        this.fecha_pedido = fecha_pedido;
+    }
 }
