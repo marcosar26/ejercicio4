@@ -14,7 +14,7 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    private ProductoDto mapToDto(Producto producto) {
+    public static ProductoDto mapToDto(Producto producto) {
         return new ProductoDto(producto.getNombre(), producto.getPrecio(), producto.getCantidad_disponible());
     }
 

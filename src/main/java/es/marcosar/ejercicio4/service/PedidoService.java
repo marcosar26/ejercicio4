@@ -1,6 +1,7 @@
 package es.marcosar.ejercicio4.service;
 
 import es.marcosar.ejercicio4.dto.DetallesPedidoRequestDTO;
+import es.marcosar.ejercicio4.dto.PedidoRequestDTO;
 import es.marcosar.ejercicio4.model.DetallesPedido;
 import es.marcosar.ejercicio4.model.Pedido;
 import es.marcosar.ejercicio4.model.Producto;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +29,8 @@ public class PedidoService {
     private ProductoRepository productoRepository;
     @Autowired
     private DetallesPedidoRepository detallesPedidoRepository;
+    @Autowired
+    private DetallesPedidoService detallesPedidoService;
 
     public List<Pedido> findAll() {
         List<Pedido> pedidos = new ArrayList<>();
@@ -51,5 +55,17 @@ public class PedidoService {
         }
 
         return pedido;
+    }
+
+    public Set<PedidoRequestDTO> getPedidosConDetalles() {
+        Set<PedidoRequestDTO> pedidosConDetalles = new HashSet<>();
+
+        List<Pedido> pedidos = findAll();
+        for (Pedido pedido : pedidos) {
+            PedidoRequestDTO pedidoDTO = detallesPedidoService.obtenerDetalles(pedido.getId());
+            pedidosConDetalles.add(pedidoDTO);
+        }
+
+        return pedidosConDetalles;
     }
 }
