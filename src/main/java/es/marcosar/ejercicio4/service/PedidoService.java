@@ -10,14 +10,12 @@ import es.marcosar.ejercicio4.repository.DetallesPedidoRepository;
 import es.marcosar.ejercicio4.repository.PedidoRepository;
 import es.marcosar.ejercicio4.repository.ProductoRepository;
 import es.marcosar.ejercicio4.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class PedidoService {
@@ -67,5 +65,20 @@ public class PedidoService {
         }
 
         return pedidosConDetalles;
+    }
+
+    @Transactional
+    public void eliminarPedido(Long id) {
+        Optional<Pedido> pedido = pedidoRepository.findById(id);
+
+        if (pedido.isEmpty()) {
+            throw new RuntimeException("El pedido no existe");
+        }
+
+        if (detallesPedidoRepository.existsByPedidoId(id)) {
+            detallesPedidoRepository.deleteByPedidoId(id);
+        }
+
+        pedidoRepository.deleteById(id);
     }
 }

@@ -44,4 +44,14 @@ public class PedidoController {
         Set<PedidoRequestDTO> set = pedidoService.getPedidosConDetalles();
         return set.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(set);
     }
+
+    @DeleteMapping("/eliminar")
+    public ResponseEntity<Void> eliminarPedido(@RequestParam Long idPedido) {
+        try {
+            pedidoService.eliminarPedido(idPedido);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

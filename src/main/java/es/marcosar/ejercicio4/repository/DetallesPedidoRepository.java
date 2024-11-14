@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface DetallesPedidoRepository extends CrudRepository<DetallesPedido, Long> {
     List<DetallesPedido> findByPedidoId(Long pedidoId);
+
+    boolean existsByPedidoId(Long pedidoId);
+
+    void deleteByPedidoId(Long pedidoId);
 }
